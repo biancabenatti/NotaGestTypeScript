@@ -95,16 +95,16 @@ const DashboardPage = () => {
         </aside>
 
         {/* Conteúdo principal */}
-        <main className="flex-1 p-6 flex flex-col lg:flex-row gap-6">
+        <main className="mt-25 ml-8 ">
           {/* Gráficos e Tabela */}
-          <div className="flex flex-col justify-center items-center">
+          <div className="flex flex-row justify-center gap-6 align-center">
             {/* Gráfico */}
-            <div className="w-full max-w-3xl mb-10">
+            <div className="align-center w-1/2 bg-white shadow-md rounded-lg p-4">                                
               <GastosChart />
             </div>
 
             {/* Tabela */}
-            <div className="w-full max-w-3xl bg-white p-4 rounded-lg shadow-md">
+            <div className="w-1/2 bg-white shadow-md rounded-lg p-4">
               <Table data={[{ property: 'Casa Jardim América', noteCount: 5 }, { property: 'Obra Centro', noteCount: 3 }, { property: 'Sítio São João', noteCount: 7 }]} />
             </div>
           </div>
