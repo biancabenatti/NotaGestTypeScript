@@ -70,9 +70,9 @@ const AddPropertyModal = ({ onClose, onAddProperty }: AddPropertyModalProps) => 
 
     return (
         <div className="fixed inset-0 bg-sky-950 bg-opacity-50 flex justify-center items-center z-50 px-4">
-            <div className="bg-white p-6 rounded shadow-md w-full max-w-md">
-                <h2 className="text-lg font-bold mb-4 text-center">Adicionar novo imóvel</h2>
-                <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="bg-white p-4 rounded-lg shadow-md w-full max-w-lg">
+                <h2 className="text-2xl font-semibold mb-4 text-sky-900 text-center">Adicionar novo imóvel</h2>
+                <form onSubmit={handleSubmit} className="space-y-4 text-sm">
                     {/* Nome do Imóvel */}
                     <input
                         type="text"
@@ -159,7 +159,7 @@ const AddPropertyModal = ({ onClose, onAddProperty }: AddPropertyModalProps) => 
                         </button>
                         <button
                             type="submit"
-                            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                            className="px-4 py-2 bg-sky-700 text-white rounded hover:bg-sky-800 w-full sm:w-auto"
                         >
                             Adicionar
                         </button>
