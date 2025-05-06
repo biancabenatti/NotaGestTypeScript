@@ -127,7 +127,10 @@ const Register = () => {
           </button>
         </section>
       </main>
+      <div className="fixed bottom-0 w-full bg-[#0c4a6e] text-white px-6 py-2 font-sans"> 
+      {/* Rodapé */}
       <Footer />
+      </div>
     </div>
   );
 }

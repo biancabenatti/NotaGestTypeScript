@@ -1,7 +1,7 @@
 'use client';
 import { IoMdCloudUpload } from "react-icons/io";
 import React, { useState } from 'react';
-import { FaUpload } from 'react-icons/fa';  // Ícone de upload
+
 
 interface FileData {
     id: number;
@@ -70,11 +70,11 @@ const AddFileModal: React.FC<AddFileModalProps> = ({ onAddFile, onClose }) => {
     };
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center z-50 px-4">
-            <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-lg">
-                <h2 className="text-xl font-semibold mb-4 text-sky-900 text-center">Adicionar Nota Fiscal</h2>
+        <div className="fixed inset-0 bg-sky-950 bg-opacity-50 flex justify-center items-center z-50 px-4">
+            <div className="bg-white p-4 rounded-lg shadow-md w-full max-w-lg ">
+                <h2 className="text-2xl font-semibold mb-4 text-sky-900 text-center">Adicionar Nota Fiscal</h2>
 
-                <div className="space-y-4">
+                <div className="space-y-3 text-sm">
 
                     {/* Input arquivo */}
 
@@ -86,7 +86,7 @@ const AddFileModal: React.FC<AddFileModalProps> = ({ onAddFile, onClose }) => {
                         onChange={(e) => setTitle(e.target.value)}
                         className="w-full border rounded px-3 py-2"
                     />
-
+                <div className="flex flex-col sm:flex-row gap-3">
                     {/* Valor */}
                     <input
                         type="number"
@@ -104,6 +104,7 @@ const AddFileModal: React.FC<AddFileModalProps> = ({ onAddFile, onClose }) => {
                         onChange={(e) => setPurchaseDate(e.target.value)}
                         className="w-full border rounded px-3 py-2"
                     />
+                </div>
 
                     {/* Descrição */}
                     <textarea
