@@ -31,7 +31,7 @@ const Tips = () => {
 
   return (
     <div
-      className="mt-20 mb-20 grid grid-cols-1 md:grid-cols-3 gap-25 max-w-7xl mx-auto font-[Plus Jakarta Sans]"
+      className="mt-18 mb-15 grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto font-[Plus Jakarta Sans]"
       id="tips"
       data-aos="fade-up"
       data-aos-anchor-placement="top-bottom"
@@ -40,14 +40,14 @@ const Tips = () => {
       {tipsData.map((tip, index) => (
         <div
         key={index}
-        className="bg-[#10b98110] text-gray-800 shadow-gray-300 rounded-2xl p-8 border border-gray-200 hover:shadow-lg transition-shadow duration-300 flex flex-col justify-between text-center min-h-[400px]"
+        className="bg-[#10b98110] text-gray-800 shadow-gray-300 rounded-4xl p-8 border border-gray-200 hover:shadow-lg transition-shadow duration-300 flex flex-col justify-between text-center min-h-[400px]"
         data-aos="fade-up"
       >
-          <div className="bg-[#10b981] rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+          <div className="bg-[#10b981] rounded-full w-18 h-18 flex items-center justify-center mx-auto">
             {React.cloneElement(tip.icon, { size: 24, className: "text-white" })}
           </div>
-          <h3 className="text-xl font-bold mb-3">{tip.title}</h3>
-          <p className="text-sm leading-relaxed mb-6">{tip.description}</p>
+          <h3 className="text-lg font-bold">{tip.title}</h3>
+          <p className="text-sm leading-relaxed mb-4">{tip.description}</p>
           <a
             href={tip.link}
             target="_blank"

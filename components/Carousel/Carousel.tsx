@@ -1,4 +1,3 @@
-// src/components/Carousel.tsx
 "use client";
 
 import React from "react";
@@ -13,18 +12,17 @@ import "slick-carousel/slick/slick-theme.css";
 
 const Carousel: React.FC = () => {
   const settings: Settings = {
-    dots: false,
-    infinite: true,
-    speed: 400,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 4000,
-    arrows: false,
+    dots: true,            // Não exibe os indicadores (bolinhas) abaixo do carrossel
+    infinite: true,         // Faz o carrossel girar em loop infinito
+    speed: 400,             // Velocidade da transição entre os slides (em milissegundos)
+    slidesToShow: 1,        // Quantidade de slides visíveis por vez
+    slidesToScroll: 1,      // Quantidade de slides que avançam a cada transição
+    autoplay: true,         // Ativa o modo automático (carrossel gira sozinho)
+    autoplaySpeed: 4000,    // Intervalo entre as transições automáticas (4 segundos)
+    arrows: false,          // Oculta as setas de navegação (próximo/anterior)
   };
-
   return (
-    <div className="carousel-container">
+    <div className="carousel-container ">
       <Slider {...settings}>
         <div className="Banner">
           <Image src={Banner_1} alt="Banner 1" className="w-full h-auto object-cover" />
