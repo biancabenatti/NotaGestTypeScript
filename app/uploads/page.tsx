@@ -7,9 +7,11 @@ import { useRouter } from 'next/navigation';
 import Logo from '/assets/Logo.png';
 import ArquivoNaoEncontrado from '/assets/arquivo_nao_encontrado.jpg';
 import AddFileModal from '../../components/AddFileModal/AddFileModal';
-import AddPropertyModal from '../../components/AddPropertyModal/AddPropertyModal'; 
+import AddPropertyModal from '../../components/AddPropertyModal/AddPropertyModal';
 import { IoTrashBinSharp } from "react-icons/io5";
-import Link from 'next/link';
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
+
 
 const UploadsPage = () => {
     const [files, setFiles] = useState<any[]>([]);
@@ -67,10 +69,68 @@ const UploadsPage = () => {
 
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
+// Gerar PDF
+const generatePDF = () => {
+  const doc = new jsPDF();
+
+  doc.setFontSize(16);
+  doc.text("Relatório de Arquivos", 14, 15);
+
+  autoTable(doc, {
+    startY: 25,
+    head: [["Título", "Valor", "Data da Compra", "Imóvel", "Categoria", "Subcategoria"]],
+    body: files.map(file => [
+      file.title,
+      `R$ ${file.value?.toFixed(2)}`,
+      file.purchaseDate,
+      file.property,
+      file.category,
+      file.subcategory
+    ]),
+    styles: {
+      fontSize: 10,
+      cellPadding: 2,
+    },
+    headStyles: {
+      fillColor: [8, 47, 73],
+      textColor: [255, 255, 255],
+    },
+  });
+
+  const blob = doc.output("blob");
+  const blobURL = URL.createObjectURL(blob);
+
+  // Remove iframe anterior se existir
+  const oldIframe = document.getElementById("printFrame");
+  if (oldIframe) oldIframe.remove();
+
+  // Cria um iframe invisível
+  const iframe = document.createElement("iframe");
+  iframe.style.position = "fixed";
+  iframe.style.right = "0";
+  iframe.style.bottom = "0";
+  iframe.style.width = "0";
+  iframe.style.height = "0";
+  iframe.style.border = "none";
+  iframe.id = "printFrame";
+
+  document.body.appendChild(iframe);
+
+  // Quando o iframe carregar o PDF, imprime
+  iframe.onload = () => {
+    setTimeout(() => {
+      iframe.contentWindow?.focus();
+      iframe.contentWindow?.print();
+    }, 500); // pequeno delay para garantir o carregamento
+  };
+
+  iframe.src = blobURL;
+};
+
     return (
-        <div className="min-h-screen bg-[#FAFAFC] font-['Plus_Jakarta_Sans', sans-serif]">
+        <div className="min-h-screen bg-white font-['Plus_Jakarta_Sans', sans-serif]">
             {/* Header */}
-            <header className="bg-sky-900 shadow-md p-6 flex justify-between items-center">
+            <header className="bg-sky-900 shadow-lg p-6 flex justify-between items-center rounded-br-4xl">
                 <Image src={Logo} alt="Logo da Empresa" width={200} height={100} />
                 <div className="relative" ref={menuRef}>
                     <button onClick={() => setShowMenu(!showMenu)} className="flex items-center">
@@ -93,27 +153,28 @@ const UploadsPage = () => {
             {/* Corpo */}
             <div className="flex">
                 {/* Menu lateral */}
-                <aside className="w-60 bg-gray-200 min-h-screen p-4">
+                <aside className="w-60 bg-[#0c4a6e] min-h-screen p-4 shadow-2xl">
                     <nav className="flex flex-col space-y-2">
                         <button
                             onClick={() => setModalOpen(true)}
-                            className="text-left py-2 border-b border-gray-400 text-sky-900 hover:font-semibold transition"
+                            className="text-left py-2 border-b border-gray-400 text-white hover:font-semibold transition"
                         >
                             Adicionar Arquivo
                         </button>
                         <button
                             onClick={() => setPropertyModalOpen(true)} // Abre o modal de adicionar imóvel
-                            className="text-left py-2 border-b border-gray-400 text-sky-900 hover:font-semibold transition"
+                            className="text-left py-2 border-b border-gray-400 text-white hover:font-semibold transition"
                         >
                             Adicionar Imóvel
                         </button>
-                        <Link href="/dashboard" className="text-left py-2 border-b border-gray-400 text-sky-900 hover:font-semibold transition">
-                            Dashboard
-                        </Link>
-                        <button className="text-left py-2 border-b border-gray-400 text-sky-900 hover:font-semibold transition">
+
+                        <button
+                            onClick={generatePDF}
+                            className="text-left py-2 border-b border-gray-400 text-white hover:font-semibold transition"
+                        >
                             Gerar Relatório
                         </button>
-                        <button className="text-left py-2 border-b border-gray-400 text-sky-900 hover:font-semibold transition">
+                        <button className="text-left py-2 border-b border-gray-400 text-white hover:font-semibold transition">
                             Ajuda
                         </button>
                     </nav>
@@ -141,17 +202,21 @@ const UploadsPage = () => {
                             />
                         )}
 
+
                         {/* Conteúdo */}
                         {files.length === 0 ? (
-                            <div className="flex flex-col items-center mt-10">
+                            <div className="flex flex-col items-center justify-center h-[60vh] text-center bg-white p-6">
                                 <Image
                                     src={ArquivoNaoEncontrado}
                                     alt="Nenhum arquivo encontrado"
-                                    width={200}
-                                    height={200}
-                                    className="mb-4"
+                                    width={160}
+                                    height={160}
+                                    className="mb-6 opacity-80 h-60 w-60"
                                 />
-                                <p className="text-gray-500">Nenhum arquivo encontrado. Adicione um arquivo.</p>
+                                <h2 className="text-lg font-semibold text-gray-700 mb-5">Nenhum arquivo encontrado</h2>
+                                <p className="text-sm text-gray-500 max-w-xs">
+                                    Parece que você ainda não adicionou nenhum arquivo. Clique no botão Asicionar Arquivo para enviar seu primeiro documento.
+                                </p>
                             </div>
                         ) : (
                             <div className="mt-4 bg-[#f3f6f8] shadow-md rounded-lg p-4 overflow-x-auto">

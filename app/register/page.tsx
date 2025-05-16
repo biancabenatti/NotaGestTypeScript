@@ -42,18 +42,18 @@ const Register = () => {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen">
-      {/* fundo azul no topo */}
+    <div className="min-h-screen flex flex-col justify-between bg-gray-100">
+      {/* Faixa superior azul */}
       <div className="w-full h-[20vh] bg-sky-900" />
-  
-      <main className="font-['Plus_Jakarta_Sans'] w-full max-w-sm mx-auto bg-[#FAFAFC] p-6 rounded-lg shadow-md -mt-20 z-10 relative mb-10">
-        <section className="flex flex-col gap-6">
+
+      {/* Card do cadastro */}
+      <main className="font-['Plus_Jakarta_Sans'] w-full max-w-sm mx-auto bg-[#FAFAFC] p-6 rounded-lg shadow-md -mt-18 z-10 relative ">
+        <section className="flex flex-col gap-3">
           <div>
             <h1 className="text-center text-gray-700 text-2xl font-semibold mt-4 mb-2">Cadastre-se</h1>
           </div>
-  
+
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-         
             <fieldset className="border-0 p-0 m-0 flex flex-col gap-4">
               <input
                 name="nome"
@@ -99,7 +99,7 @@ const Register = () => {
               />
               {error && <p className="text-red-600 text-sm mt-1">{error}</p>}
             </fieldset>
-  
+
             <div className="flex items-center gap-2">
               <input
                 id="aceite-contrato"
@@ -111,28 +111,28 @@ const Register = () => {
                 Aceito os termos
               </label>
             </div>
-  
+
             <button
               type="submit"
-              className="bg-yellow-300 hover:bg-yellow-400 transition transform hover:scale-105 text-black py-2 rounded"
+              className="bg-[#fde047] hover:bg-yellow-400 transition transform hover:scale-105 text-black py-2 rounded"
             >
               Cadastrar
             </button>
           </form>
+
           <button
             onClick={handleGoHome}
-            className="bg-gray-300 hover:bg-yellow-400 transition transform hover:scale-105 text-black py-2 rounded"
+            className="bg-gray-300 hover:bg-gray-400 transition transform hover:scale-105 text-black py-2 rounded"
           >
             Voltar para a Home
           </button>
         </section>
       </main>
-      <div className="fixed bottom-0 w-full bg-[#0c4a6e] text-white px-6 py-2 font-sans"> 
-      {/* Rodapé */}
-      <Footer />
-      </div>
+
+      {/* Faixa inferior azul */}
+      <div className="w-full h-10 bg-sky-900" />
     </div>
   );
-}
+};
 
 export default Register;

@@ -2,7 +2,7 @@
 
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import Footer from '../../components/Footer/Footer'; 
+import Footer from '../../components/Footer/Footer';
 
 type Credentials = {
   email: string;
@@ -34,25 +34,24 @@ const Login: React.FC = () => {
     router.push('/');
   };
 
-  return (
-    <div>
+   return (
+    <div className="min-h-screen flex flex-col justify-between">
       {/* Faixa superior azul */}
-      <div className="w-full h-[20vh] bg-sky-900" />
-  
+      <div className="w-full h-[30vh] bg-sky-900" />
+
       {/* Card do login */}
-      <main className="font-['Plus_Jakarta_Sans',sans-serif] w-full max-w-sm mx-auto bg-[#FAFAFC] p-6 rounded-t-lg -mt-16 z-10 relative">
-        <section className="z-10 bg-[#FAFAFC] mb-6">
+      <main className="font-['Plus_Jakarta_Sans',sans-serif] w-full max-w-sm mx-auto bg-[#FAFAFC] p-6 rounded-t-lg -mt-16 relative shadow-lg z-10">
+        <section>
           <div className="text-center">
-            <h1 className="my-5 text-gray-600 text-2xl">Login</h1>
+            <h1 className="my-5 text-gray-600 text-2xl font-semibold">Login</h1>
           </div>
-  
+
           <form onSubmit={handleSubmit}>
-            {/* Campo de email */}
             <div className="mb-4">
               <input
                 name="email"
                 id="email"
-                className="w-full p-3 border border-gray-300 rounded text-base"
+                className="w-full p-3 border border-gray-300 rounded text-base focus:outline-none focus:ring-2 focus:ring-sky-600"
                 type="email"
                 placeholder="Email"
                 value={credentials.email}
@@ -60,13 +59,12 @@ const Login: React.FC = () => {
                 required
               />
             </div>
-  
-            {/* Campo de senha */}
+
             <div className="mb-2">
               <input
                 name="senha"
                 id="senha"
-                className="w-full p-3 border border-gray-300 rounded text-base"
+                className="w-full p-3 border border-gray-300 rounded text-base focus:outline-none focus:ring-2 focus:ring-sky-600"
                 type="password"
                 placeholder="Senha"
                 value={credentials.senha}
@@ -74,40 +72,38 @@ const Login: React.FC = () => {
                 required
               />
             </div>
+
+            <a
+              href="/forgot-password"
+              className="block text-right underline text-sm mt-1 hover:text-gray-700"
+            >
+              Esqueceu a senha?
+            </a>
+
+            <div className="flex flex-col mt-6">
+              <button
+                type="submit"
+                className="text-black bg-[#fde047] px-4 py-2 rounded transition duration-300 border-none mb-4 hover:bg-yellow-500 hover:scale-105"
+              >
+                Login
+              </button>
+
+              <button
+                type="button"
+                onClick={handleGoHome}
+                className="text-black px-4 py-2 rounded transition duration-300 border-none bg-gray-300 mb-2 hover:bg-gray-400 hover:scale-105"
+              >
+                Voltar para a Home
+              </button>
+            </div>
           </form>
-  
-          {/* Link para recuperar senha */}
-          <a
-            href="/forgot-password"
-            className="block text-right underline text-sm mt-1 hover:text-gray-700"
-          >
-            Esqueceu a senha?
-          </a>
         </section>
       </main>
-  
-      {/* Botões de ação */}
-      <div className="flex flex-col font-['Plus_Jakarta_Sans',sans-serif] w-full max-w-sm mx-auto bg-[#F1F5F9] p-6 rounded-b-lg shadow-md mb-10">
-        <button
-          type="submit"
-          className="text-black bg-yellow-400 px-4 py-2 rounded transition duration-300 border-none mb-4 hover:bg-yellow-500 hover:scale-105"
-          onClick={handleSubmit}
-        >
-          Login
-        </button>
-  
-        <button
-          onClick={handleGoHome}
-          className="text-black px-4 py-2 rounded transition duration-300 border-none bg-gray-300 mb-2 hover:bg-yellow-500 hover:scale-105"
-        >
-          Voltar para a Home
-        </button>
-      </div>
-      <div className="fixed bottom-0 w-full bg-[#0c4a6e] text-white px-6 py-2 font-sans"> 
-      {/* Rodapé */}
-      <Footer />
-      </div>
+
+      {/* Faixa azul no rodapé */}
+      <div className="w-full h-20 bg-sky-900 mt-10" />
     </div>
   );
-}
+};
+
 export default Login;
