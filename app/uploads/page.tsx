@@ -69,63 +69,63 @@ const UploadsPage = () => {
 
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-// Gerar PDF
-const generatePDF = () => {
-  const doc = new jsPDF();
+    // Gerar PDF
+    const generatePDF = () => {
+        const doc = new jsPDF();
 
-  doc.setFontSize(16);
-  doc.text("Relatório de Arquivos", 14, 15);
+        doc.setFontSize(16);
+        doc.text("Relatório de Arquivos", 14, 15);
 
-  autoTable(doc, {
-    startY: 25,
-    head: [["Título", "Valor", "Data da Compra", "Imóvel", "Categoria", "Subcategoria"]],
-    body: files.map(file => [
-      file.title,
-      `R$ ${file.value?.toFixed(2)}`,
-      file.purchaseDate,
-      file.property,
-      file.category,
-      file.subcategory
-    ]),
-    styles: {
-      fontSize: 10,
-      cellPadding: 2,
-    },
-    headStyles: {
-      fillColor: [8, 47, 73],
-      textColor: [255, 255, 255],
-    },
-  });
+        autoTable(doc, {
+            startY: 25,
+            head: [["Título", "Valor", "Data da Compra", "Imóvel", "Categoria", "Subcategoria"]],
+            body: files.map(file => [
+                file.title,
+                `R$ ${file.value?.toFixed(2)}`,
+                file.purchaseDate,
+                file.property,
+                file.category,
+                file.subcategory
+            ]),
+            styles: {
+                fontSize: 10,
+                cellPadding: 2,
+            },
+            headStyles: {
+                fillColor: [8, 47, 73],
+                textColor: [255, 255, 255],
+            },
+        });
 
-  const blob = doc.output("blob");
-  const blobURL = URL.createObjectURL(blob);
+        const blob = doc.output("blob");
+        const blobURL = URL.createObjectURL(blob);
 
-  // Remove iframe anterior se existir
-  const oldIframe = document.getElementById("printFrame");
-  if (oldIframe) oldIframe.remove();
+        // Remove iframe anterior se existir
+        const oldIframe = document.getElementById("printFrame");
+        if (oldIframe) oldIframe.remove();
 
-  // Cria um iframe invisível
-  const iframe = document.createElement("iframe");
-  iframe.style.position = "fixed";
-  iframe.style.right = "0";
-  iframe.style.bottom = "0";
-  iframe.style.width = "0";
-  iframe.style.height = "0";
-  iframe.style.border = "none";
-  iframe.id = "printFrame";
+        // Cria um iframe invisível
+        const iframe = document.createElement("iframe");
+        iframe.style.position = "fixed";
+        iframe.style.right = "0";
+        iframe.style.bottom = "0";
+        iframe.style.width = "0";
+        iframe.style.height = "0";
+        iframe.style.border = "none";
+        iframe.id = "printFrame";
 
-  document.body.appendChild(iframe);
+        document.body.appendChild(iframe);
 
-  // Quando o iframe carregar o PDF, imprime
-  iframe.onload = () => {
-    setTimeout(() => {
-      iframe.contentWindow?.focus();
-      iframe.contentWindow?.print();
-    }, 500); // pequeno delay para garantir o carregamento
-  };
+        // Quando o iframe carregar o PDF, imprime
+        iframe.onload = () => {
+            setTimeout(() => {
+                iframe.contentWindow?.focus();
+                iframe.contentWindow?.print();
+            }, 500); // pequeno delay para garantir o carregamento
+        };
 
-  iframe.src = blobURL;
-};
+        iframe.src = blobURL;
+    };
 
     return (
         <div className="min-h-screen bg-white font-['Plus_Jakarta_Sans', sans-serif]">
@@ -174,7 +174,15 @@ const generatePDF = () => {
                         >
                             Gerar Relatório
                         </button>
-                        <button className="text-left py-2 border-b border-gray-400 text-white hover:font-semibold transition">
+                        <button
+                            onClick={() =>
+                                window.open(
+                                    "https://wa.me/5519983702302?text=Olá! Preciso de ajuda com o sistema.",
+                                    "_blank"
+                                )
+                            }
+                            className="text-left py-2 border-b border-gray-400 text-white hover:font-semibold transition"
+                        >
                             Ajuda
                         </button>
                     </nav>
