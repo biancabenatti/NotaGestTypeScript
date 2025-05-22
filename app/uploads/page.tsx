@@ -177,7 +177,7 @@ const UploadsPage = () => {
                         <button
                             onClick={() =>
                                 window.open(
-                                    "https://wa.me/5519983702302?text=Olá! Preciso de ajuda com o sistema.",
+                                    "https://wa.me/5519999999999?text=Olá! Preciso de ajuda com o sistema.",
                                     "_blank"
                                 )
                             }
